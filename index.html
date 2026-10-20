@@ -48,6 +48,15 @@ canvas{display:block;width:100%;height:100%;}
 .gummy-row img{height:44px;animation:bob 1.2s ease-in-out infinite;}
 .gummy-row img:nth-child(2){animation-delay:.15s}.gummy-row img:nth-child(3){animation-delay:.3s}.gummy-row img:nth-child(4){animation-delay:.45s}
 @keyframes bob{50%{transform:translateY(-8px) rotate(6deg)}}
+.title-wrap{position:relative;width:100%;max-width:520px;display:flex;justify-content:center;}
+.title-wrap .card{position:relative;z-index:1;}
+.pack-hero{position:absolute;width:180px;height:auto;pointer-events:none;filter:drop-shadow(0 14px 18px rgba(90,42,18,.25));z-index:0;}
+.ph-l{left:-150px;top:20px;transform:rotate(-12deg);animation:packL 3.2s ease-in-out infinite;}
+.ph-r{right:-150px;bottom:10px;transform:rotate(10deg);animation:packR 3.6s ease-in-out infinite;}
+@keyframes packL{50%{transform:rotate(-9deg) translateY(-10px)}}
+@keyframes packR{50%{transform:rotate(12deg) translateY(-8px)}}
+.mini-pack{display:none;height:26px;width:auto;vertical-align:-8px;margin-right:2px;}
+@media (max-width:980px){.pack-hero{display:none}.mini-pack{display:inline}}
 .deco{position:absolute;pointer-events:none;filter:drop-shadow(0 6px 8px rgba(90,42,18,.18));}
 .deco.d1{width:74px;left:-26px;top:-24px;transform:rotate(-14deg);}
 .deco.d2{width:70px;right:-22px;bottom:-20px;transform:rotate(12deg);}
@@ -106,7 +115,7 @@ body.is-touch .controls.touch-only{display:flex}
   .best{font-size:12px;padding:4px 10px}
   .card{max-width:640px;padding:14px 22px 16px;border-radius:24px;box-shadow:0 6px 0 #ffb27a,0 16px 30px rgba(160,60,0,.22)}
   .logo{font-size:30px}.logo-img img{width:min(260px,100%)}.sub{font-size:11px;margin-top:2px}
-  .gummy-row{display:none}
+  .gummy-row{display:none}.pack-hero{display:none}.mini-pack{display:inline;height:22px;vertical-align:-6px}
   .mission{font-size:13px;margin-top:6px}.legend{margin:6px 0 2px;gap:6px}.legend img{height:26px}.legend div{font-size:10.5px;padding:4px 8px 4px 4px}
   .promo{margin-top:8px;font-size:10px}
   .how{font-size:12px;line-height:1.6;margin:6px 0 10px}
@@ -115,9 +124,9 @@ body.is-touch .controls.touch-only{display:flex}
   .stat{padding:6px}.stat strong{font-size:20px}.stat small{font-size:10px}
   .banner{top:30%}
   body.is-touch .overlay{place-items:center end}
-  body.is-touch .card{max-width:min(560px,64vw)}
+  body.is-touch .card,body.is-touch .title-wrap{max-width:min(560px,64vw)}
 }
-@media (prefers-reduced-motion:reduce){.gummy-row img,.newbest,.fever i,.logo-img img{animation:none}.card{animation:none}}
+@media (prefers-reduced-motion:reduce){.gummy-row img,.newbest,.fever i,.logo-img img,.pack-hero{animation:none}.card{animation:none}}
 </style>
 
 <div id="stage"><canvas id="c"></canvas></div>
@@ -140,6 +149,9 @@ body.is-touch .controls.touch-only{display:flex}
 </div>
 
 <div class="overlay" id="title">
+  <div class="title-wrap">
+  <img class="pack-hero ph-l" src="assets/packbig_green.webp" alt="MK Better Bear Gummy กลิ่นแอปเปิ้ลเขียวและแตงโม">
+  <img class="pack-hero ph-r" src="assets/packbig_orange.webp" alt="MK Better Bear Gummy กลิ่นสับปะรดและส้ม">
   <div class="card">
     <img class="deco d1" src="assets/fruit_apple.webp" alt=""><img class="deco d2" src="assets/fruit_orange.webp" alt=""><img class="deco d3" src="assets/fruit_watermelon.webp" alt="">
     <h1 class="logo-img"><img src="assets/logo.webp" alt="กัมมี่พี่หมี MK"></h1>
@@ -156,7 +168,8 @@ body.is-touch .controls.touch-only{display:flex}
     <p class="how kbd-only">กระโดด <kbd>Space</kbd>/<kbd>↑</kbd> (กดซ้ำ = 2 ชั้น) · สไลด์ <kbd>↓</kbd> · พัก <kbd>P</kbd> · เต็มหลอด = <b>FEVER!</b></p>
     <p class="how touch-only">ปุ่ม <b style="color:#ff6a1a">กระโดด</b> ขวาล่าง (แตะซ้ำ = 2 ชั้น) · กดค้าง <b style="color:#5f9a1d">สไลด์</b> ซ้ายล่าง · กัมมี่เต็มหลอด = <b>FEVER!</b></p>
     <button class="btn" id="startBtn">เริ่มวิ่ง!</button>
-    <p class="promo"><span class="tag">SUGAR FREE</span> แรงบันดาลใจจาก <b>MK Better Bear Gummy</b> · น้ำตาล 0 g · 4 รสผลไม้</p>
+    <p class="promo"><img class="mini-pack" src="assets/pack_green.webp" alt=""><img class="mini-pack" src="assets/pack_orange.webp" alt=""><span class="tag">SUGAR FREE</span> แรงบันดาลใจจาก <b>MK Better Bear Gummy</b> · น้ำตาล 0 g · 4 รสผลไม้</p>
+  </div>
   </div>
 </div>
 
