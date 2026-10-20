@@ -52,6 +52,10 @@ canvas{display:block;width:100%;height:100%;}
 .deco.d1{width:74px;left:-26px;top:-24px;transform:rotate(-14deg);}
 .deco.d2{width:70px;right:-22px;bottom:-20px;transform:rotate(12deg);}
 .deco.d3{width:76px;right:-30px;top:18px;transform:rotate(18deg);}
+.logo-img{margin:0;line-height:0;}
+.logo-img img{width:min(380px,100%);height:auto;filter:drop-shadow(0 6px 10px rgba(229,32,46,.18));animation:logoBob 2.4s ease-in-out infinite;}
+@keyframes logoBob{50%{transform:translateY(-4px) rotate(-1deg)}}
+.logo .mk{font-style:italic;font-weight:700;color:#e5202e;text-shadow:0 4px 0 #ffd0d3;letter-spacing:-.02em;font-size:.82em;}
 .mission{margin:12px 0 0;font-size:16px;font-weight:500;color:var(--ink);text-wrap:balance;}
 .legend{display:flex;justify-content:center;gap:10px;margin:12px 0 4px;}
 .legend div{display:flex;align-items:center;gap:6px;background:#fff;border-radius:16px;padding:6px 10px 6px 6px;box-shadow:0 3px 0 #ffd9b8;font-size:12px;line-height:1.25;text-align:left;color:#8a4a22;}
@@ -101,7 +105,7 @@ body.is-touch .controls.touch-only{display:flex}
   .icon-btn{width:34px;height:34px;font-size:15px}
   .best{font-size:12px;padding:4px 10px}
   .card{max-width:640px;padding:14px 22px 16px;border-radius:24px;box-shadow:0 6px 0 #ffb27a,0 16px 30px rgba(160,60,0,.22)}
-  .logo{font-size:30px}.sub{font-size:11px;margin-top:2px}
+  .logo{font-size:30px}.logo-img img{width:min(260px,100%)}.sub{font-size:11px;margin-top:2px}
   .gummy-row{display:none}
   .mission{font-size:13px;margin-top:6px}.legend{margin:6px 0 2px;gap:6px}.legend img{height:26px}.legend div{font-size:10.5px;padding:4px 8px 4px 4px}
   .promo{margin-top:8px;font-size:10px}
@@ -113,7 +117,7 @@ body.is-touch .controls.touch-only{display:flex}
   body.is-touch .overlay{place-items:center end}
   body.is-touch .card{max-width:min(560px,64vw)}
 }
-@media (prefers-reduced-motion:reduce){.gummy-row img,.newbest,.fever i{animation:none}.card{animation:none}}
+@media (prefers-reduced-motion:reduce){.gummy-row img,.newbest,.fever i,.logo-img img{animation:none}.card{animation:none}}
 </style>
 
 <div id="stage"><canvas id="c"></canvas></div>
@@ -138,12 +142,12 @@ body.is-touch .controls.touch-only{display:flex}
 <div class="overlay" id="title">
   <div class="card">
     <img class="deco d1" src="assets/fruit_apple.webp" alt=""><img class="deco d2" src="assets/fruit_orange.webp" alt=""><img class="deco d3" src="assets/fruit_watermelon.webp" alt="">
-    <h1 class="logo">กัมมี่<span>พี่หมี</span></h1>
+    <h1 class="logo-img"><img src="assets/logo.webp" alt="กัมมี่พี่หมี MK"></h1>
     <p class="sub">MK Gummy Run</p>
     <div class="gummy-row">
       <img src="assets/gummy_red.webp" alt=""><img src="assets/gummy_orange.webp" alt=""><img src="assets/gummy_yellow.webp" alt=""><img src="assets/gummy_green.webp" alt="">
     </div>
-    <p class="mission">พาพี่หมีวิ่งเก็บกัมมี่ผลไม้ หลบเหล่า<b>ก้อนน้ำตาล</b>ให้พ้น!</p>
+    <p class="mission">พาพี่หมีเก็บกัมมี่ให้เต็มที่ เพราะ<b>ไม่มีน้ำตาล</b><br>หลบเหล่า<b>ก้อนน้ำตาล</b>ให้พ้น เพราะพี่หมี MK ไม่มีน้ำตาล</p>
     <div class="legend">
       <div><img src="assets/gummy_green.webp" alt=""><span>กัมมี่<br><b>+10</b></span></div>
       <div><img src="assets/sugar_cube.webp" alt=""><span>ก้อนน้ำตาล<br><b>หลบ!</b></span></div>
@@ -581,6 +585,8 @@ function drawBear(){
   ctx.scale(sx,sy);
   if(fev){ctx.shadowColor='rgba(255,230,120,.9)';ctx.shadowBlur=24;}
   const cut=.89,iw=img.width,ih=img.height;
+  // standing / idle (title + game over): draw the bear in one piece so body and legs never separate
+  if(!running){ctx.drawImage(img,-W0/2,-H0,W0,H0);ctx.restore();return;}
   // legs (behind body), alternate lifting while running
   const legH=ih*(1-.86);
   const lift=running?10:0,swing=running?5:0;
